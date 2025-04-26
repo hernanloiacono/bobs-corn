@@ -1,0 +1,16 @@
+# Node modules
+**/node_modules/
+
+# Logs
+**/npm-debug.log*
+
+# Build output
+bobs-corn-client/dist/
+bobs-corn-server/dist/
+
+# dotenv environment variables
+**/.env
+**/.env.*
+
+# TypeScript compiled files
+**/*.tsbuildinfo
