@@ -9,20 +9,22 @@ export class ClientController {
   }
 
   async purchaseCorn(req: Request, res: Response): Promise<void> {
-    const clientId = req.body.clientId;
+    
+    const forwarded = req.header('x-forwarded-for');
+    const ip = (typeof forwarded === 'string' ? forwarded.split(',')[0] : undefined) ||  req.socket.remoteAddress;
 
-    if (!clientId) {
-      res.status(400).send("Client ID is required");
+    if (!ip) {
+      res.status(400).send("IP address not found");
       return;
     }
 
-    const canPurchase = await this.rateLimiterService.canPurchase(clientId);
+    const canPurchase = await this.rateLimiterService.canPurchase(ip);
     if (!canPurchase) {
       res.status(429).send("Too Many Requests");
       return;
     }
 
-    await this.rateLimiterService.registerPurchase(clientId);
+    await this.rateLimiterService.registerPurchase(ip);
     res.status(200).send("🌽 Corn purchased successfully!");
   }
 }

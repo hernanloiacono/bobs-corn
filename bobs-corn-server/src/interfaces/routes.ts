@@ -2,9 +2,7 @@ import { Router } from "express";
 import { ClientController } from "./ClientController";
 import { RateLimiterService } from "../application/RateLimiterService";
 import { ClientRepositoryPostgres } from "../infrastructure/ClientRepositoryPostgres";
-import { Pool } from "pg";
-
-const pool = new Pool(); // Ajusta las configuraciones para tu base de datos
+import { pool } from "../config/database";
 
 const clientRepository = new ClientRepositoryPostgres(pool);
 const rateLimiterService = new RateLimiterService(clientRepository);

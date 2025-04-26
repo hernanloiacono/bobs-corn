@@ -5,14 +5,22 @@ A simple rate-limited corn-selling API with a client interface.
 ## Instructions
 
 1. Clone the repository.
-2. Navigate to each directory and install dependencies:
+2. Create Databese:
+   - `cd bobs-corn-server`
+   - `chmod +x setup_db.sh`
+   - `./setup_db.sh`
+3. Navigate to each directory and install dependencies:
    - `cd bobs-corn-server && npm install`
    - `cd ../bobs-corn-client && npm install`
-3. Start the backend:
+4. Set up the environment variables:
+   - `cp bobs-corn-server/.env.example bobs-corn-server/.env`
+   - `cp bobs-corn-client/.env.example bobs-corn-client/.env`
+   Fill in the appropriate values in each .env file if needed (e.g password, port, url).
+5. Start the backend:
    - `cd bobs-corn-server && npm run dev`
-4. Start the frontend:
+6. Start the frontend:
    - `cd ../bobs-corn-client && npm run dev`
-5. Open your browser and go to `http://localhost:5173`.
+7. Open your browser and go to `http://localhost:5173`.
 
 ## Technologies Used
 
@@ -33,7 +41,7 @@ A simple rate-limited corn-selling API with a client interface.
 
 - Clients can "buy" corn via a button in the UI.
 - Backend enforces a rate limit: 1 corn per client per minute.
-- Clients see how many corns they've successfully purchased.
+- Clients see if they successfully purchased or if they have to wait.
 
 ## Optional Features Implemented
 

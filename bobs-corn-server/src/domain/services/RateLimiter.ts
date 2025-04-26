@@ -1,7 +1,7 @@
 import { Client } from "../models/Client";
 
 export class RateLimiter {
-  private static rateLimit = 60 * 1000; // 1 minuto en milisegundos
+  private static rateLimit = 60 * 1000;//ms
 
   static canPurchase(client: Client): boolean {
     if (!client.lastPurchase) {

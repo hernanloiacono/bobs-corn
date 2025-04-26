@@ -1,25 +1,25 @@
-import { ClientRepositoryPostgres } from "../infrastructure/ClientRepositoryPostgres";
+import { IClientRepository } from "../domain/repositories/ClientRepository";
 import { RateLimiter } from "../domain/services/RateLimiter";
 import { Client } from "../domain/models/Client";
 
 export class RateLimiterService {
-  private clientRepository: ClientRepositoryPostgres;
+  private clientRepository: IClientRepository;
 
-  constructor(clientRepository: ClientRepositoryPostgres) {
+  constructor(clientRepository: IClientRepository) {
     this.clientRepository = clientRepository;
   }
 
-  async canPurchase(clientId: string): Promise<boolean> {
-    const client = await this.clientRepository.findById(clientId);
+  async canPurchase(clientIp: string): Promise<boolean> {
+    const client = await this.clientRepository.findByIp(clientIp);
     if (!client) {
-      return true; // Si el cliente no existe, puede comprar sin restricciones
+      return true;
     }
 
     return RateLimiter.canPurchase(client);
   }
 
-  async registerPurchase(clientId: string): Promise<void> {
-    const client = await this.clientRepository.findById(clientId) || new Client(clientId);
+  async registerPurchase(clientIp: string): Promise<void> {
+    const client = await this.clientRepository.findByIp(clientIp) || new Client(null, clientIp);
     RateLimiter.updatePurchase(client);
     await this.clientRepository.save(client);
   }
