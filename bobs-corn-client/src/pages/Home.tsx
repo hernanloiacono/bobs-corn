@@ -1,9 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
-import Button from '../components/Button';
-import Content from '../components/Content';
-import Container from '../components/Container';
 import Footer from '../components/Footer';
+import Container from '../components/Container';
+import Content from '../components/Content';
+import Button from '../components/Button';
+import { Message } from '../components/Message';
 import { useBuyCorn } from '../hooks/useBuyCorn';
 
 const Home: React.FC = () => {
@@ -16,11 +17,7 @@ const Home: React.FC = () => {
       <Content>
         <Button label="Buy Corn" onClick={buyCorn} />
       </Content>
-      {message && (
-        <div className="mt-4 text-center text-lg">
-          {message}
-        </div>
-      )}
+      {message && <Message text={message} />}
       <Footer />
     </Container>
   );

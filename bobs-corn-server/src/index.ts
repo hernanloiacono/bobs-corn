@@ -6,6 +6,9 @@ import { router } from "./interfaces/routes";
 dotenv.config();
 
 const app = express();
+
+app.set('trust proxy', true);
+
 const PORT = Number(process.env.PORT);
 
 app.use(cors({

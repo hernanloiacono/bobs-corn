@@ -10,8 +10,7 @@ export class ClientController {
 
   async purchaseCorn(req: Request, res: Response): Promise<void> {
     
-    const forwarded = req.header('x-forwarded-for');
-    const ip = (typeof forwarded === 'string' ? forwarded.split(',')[0] : undefined) ||  req.socket.remoteAddress;
+    const ip = req.ip;
 
     if (!ip) {
       res.status(400).send("IP address not found");
